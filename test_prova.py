@@ -10,31 +10,30 @@ rule30 = {"000": '.',
           "..0": '0',
          }
 def generate_state():
-    return ".....0......"
+    return "..0..00....."
 
 
-def evolve(stato):
+def evolve(stato, leng):
     new_state=""
-    midstate="..."
     new_state+=stato[0]
-    
-    length=len(stato)
-    for i in (2, length-1):
-       midstate=stato[i-1]+stato[i]+stato[i+1]
-       new_state+=rule30.get(midstate)
-    new_state+=stato[len(stato)]
+    for i in range (1, leng-1):
+        midstate=stato[i-1]+stato[i]+stato[i+1]
+        new_state+=rule30.get(midstate)
+    new_state+=stato[leng-1]
     return new_state
+
 
 def simulation(nsteps):
     initial_state = generate_state()
+    leng=len(initial_state)
     states_seq = [initial_state]
     for i in range(nsteps):
         old_state = states_seq[-1]
-        new_state = evolve(old_state)
+        new_state = evolve(old_state, leng)
         states_seq.append(new_state)
     return states_seq
 
-print (simulation(10))
+print (simulation(100))
 
 
 
