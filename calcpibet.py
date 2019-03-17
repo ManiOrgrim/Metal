@@ -1,21 +1,32 @@
 import numpy as np
+import time
+
+start_time=time.time()
 
 def createx (n):
    x=np.empty(n)
    for i in range (0, n):
-      x[i]=np.random.rand()*2-1
-   return x
+      x[i]=np.random.rand()
+   return x*2-1
 
-def createy (n):
-   y=np.empty(n)
-   for i in range (0,n):
-      y[i]=np.random.rand()*2-1
-   return y
+def square_and_returnN (x, y):
+   c=x*x+y*y
+   return (len(c[c<1]))
 
-def square (x, y):
-   c=x**2+y**2
-   return c[c<1]
-a=square(createx(20),createy(20))
-print (a)
+
+def algo (N):
+   n=10000000
+   tomean=np.empty(N)
+   for i in range (0, N):
+      tomean[i]=square_and_returnN(createx(n),createx(n))
+      print("Sono al ", i*100/N, "%")
+   return 4*np.mean(tomean)/n
+   
+
+#print(algo())   
+#print (4*square_and_returnN(createx(1000),createy(1000)))
+N=1000
+pi=algo(N)
+print("pi is ", pi, " in ", time.time()-start_time, "sec with precision ", np.abs(pi-np.pi))
 
 
